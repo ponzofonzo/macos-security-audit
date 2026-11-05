@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    name: Unit tests (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.9"
+          - os: ubuntu-latest
+            python: "3.13"
+          - os: macos-latest
+            python: "3.13"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Byte-compile
+        run: python -m compileall -q macos_security_audit tests
+      - name: Unit tests (mocked command output)
+        run: python -m unittest discover -s tests -t . -v
+
+  macos-smoke:
+    name: Live smoke run (GitHub-hosted macOS VM)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run read-only audit as standard user and as root
+        run: |
+          set +e
+          python3 -m macos_security_audit --json smoke/user.json --html smoke/user.html
+          sudo python3 -m macos_security_audit --json smoke/root.json --html smoke/root.html
+          sudo chown -R "$(id -u)" smoke
+          echo "done"
+      - name: Validate report structure
+        run: |
+          python3 - <<'EOF'
+          import json
+          for name in ("user", "root"):
+              report = json.load(open(f"smoke/{name}.json"))
+              assert report["data_source"] == "live"
+              assert len(report["checks"]) == 12
+              print(f"[{name}]", report["summary"]["headline"])
+              for check in report["checks"]:
+                  print(f'  {check["status"]:>5}  {check["id"]:<18} {check["summary"]}')
+          EOF
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-smoke-report
+          path: smoke/

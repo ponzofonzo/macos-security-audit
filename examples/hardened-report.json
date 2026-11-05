@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "macos-security-audit",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-01-15T12:00:00+00:00",
+  "data_source": "replay:hardened.json",
+  "summary": {
+    "overall_status": "pass",
+    "total": 12,
+    "counts": {
+      "pass": 11,
+      "warn": 0,
+      "fail": 0,
+      "error": 0,
+      "info": 1,
+      "skip": 0
+    },
+    "score_percent": 100,
+    "controls_passed": 11,
+    "controls_evaluated": 11,
+    "failed_controls": [],
+    "not_evaluated": [],
+    "headline": "Security score: 100% (11 of 11 evaluated controls passing)"
+  },
+  "checks": [
+    {
+      "id": "filevault",
+      "title": "FileVault disk encryption",
+      "category": "Data protection",
+      "status": "pass",
+      "summary": "FileVault is on",
+      "details": {
+        "state": "on"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "sip",
+      "title": "System Integrity Protection",
+      "category": "System integrity",
+      "status": "pass",
+      "summary": "SIP is enabled",
+      "details": {
+        "state": "enabled"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "gatekeeper",
+      "title": "Gatekeeper",
+      "category": "System integrity",
+      "status": "pass",
+      "summary": "Gatekeeper assessments are enabled",
+      "details": {
+        "state": "enabled"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "xprotect",
+      "title": "XProtect version",
+      "category": "System integrity",
+      "status": "info",
+      "summary": "XProtect 5284",
+      "details": {
+        "version": "5284"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "security_updates",
+      "title": "Automatic security updates",
+      "category": "System integrity",
+      "status": "pass",
+      "summary": "Security responses and system data files install automatically",
+      "details": {
+        "CriticalUpdateInstall": true,
+        "ConfigDataInstall": true,
+        "explicitly_configured": [
+          "ConfigDataInstall",
+          "CriticalUpdateInstall"
+        ]
+      },
+      "remediation": ""
+    },
+    {
+      "id": "firewall",
+      "title": "Application Firewall",
+      "category": "Network",
+      "status": "pass",
+      "summary": "Firewall is on",
+      "details": {
+        "state": 1
+      },
+      "remediation": ""
+    },
+    {
+      "id": "firewall_stealth",
+      "title": "Firewall stealth mode",
+      "category": "Network",
+      "status": "pass",
+      "summary": "Stealth mode is on",
+      "details": {},
+      "remediation": ""
+    },
+    {
+      "id": "remote_login",
+      "title": "Remote Login (SSH)",
+      "category": "Network",
+      "status": "pass",
+      "summary": "Remote Login (SSH) is off",
+      "details": {
+        "state": "off"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "screen_lock",
+      "title": "Screen lock password",
+      "category": "Access control",
+      "status": "pass",
+      "summary": "Password required immediately",
+      "details": {
+        "delay_seconds": 0
+      },
+      "remediation": ""
+    },
+    {
+      "id": "guest_account",
+      "title": "Guest account",
+      "category": "Access control",
+      "status": "pass",
+      "summary": "Guest account is disabled",
+      "details": {
+        "guest_enabled": false,
+        "explicitly_configured": true
+      },
+      "remediation": ""
+    },
+    {
+      "id": "auto_login",
+      "title": "Automatic login",
+      "category": "Access control",
+      "status": "pass",
+      "summary": "Automatic login is disabled",
+      "details": {
+        "auto_login": false
+      },
+      "remediation": ""
+    },
+    {
+      "id": "admin_accounts",
+      "title": "Local administrator accounts",
+      "category": "Access control",
+      "status": "pass",
+      "summary": "1 local administrator account(s) (excluding root)",
+      "details": {
+        "admin_count": 1
+      },
+      "remediation": ""
+    }
+  ]
+}

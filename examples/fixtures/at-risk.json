@@ -1,0 +1,17 @@
+{
+  "description": "SYNTHETIC DATA. Unmanaged Mac with several weak settings, audited without sudo. Values are invented.",
+  "now": "2026-01-15T12:00:00Z",
+  "commands": {
+    "/usr/bin/fdesetup status": {"returncode": 0, "stdout": "FileVault is Off.\n"},
+    "/usr/bin/csrutil status": {"returncode": 0, "stdout": "System Integrity Protection status: unknown (Custom Configuration).\n\nConfiguration:\n\tApple Internal: disabled\n\tKext Signing: disabled\n\tFilesystem Protections: enabled\n\tDebugging Restrictions: enabled\n\tDTrace Restrictions: enabled\n\tNVRAM Protections: enabled\n\tBaseSystem Verification: enabled\n\nThis is an unsupported configuration, likely to break in the future and leave your machine in an unknown state.\n"},
+    "/usr/sbin/spctl --status": {"returncode": 1, "stdout": "assessments disabled\n"},
+    "/usr/bin/plutil -convert xml1 -o - /Library/Apple/System/Library/CoreServices/XProtect.bundle/Contents/Info.plist": {"returncode": 0, "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict><key>CFBundleShortVersionString</key><string>5272</string></dict></plist>\n"},
+    "/usr/bin/plutil -convert xml1 -o - /Library/Preferences/com.apple.SoftwareUpdate.plist": {"returncode": 0, "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict><key>CriticalUpdateInstall</key><false/></dict></plist>\n"},
+    "/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate": {"returncode": 0, "stdout": "Firewall is disabled. (State = 0)\n"},
+    "/usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode": {"returncode": 0, "stdout": "Firewall stealth mode is off\n"},
+    "/usr/sbin/systemsetup -getremotelogin": {"returncode": 1, "stdout": "You need administrator access to run this tool... exiting!\n"},
+    "/usr/sbin/sysadminctl -screenLock status": {"returncode": 0, "stdout": "", "stderr": "2026-01-15 12:00:00.000 sysadminctl[1000:2000] screenLock delay is 300 seconds\n"},
+    "/usr/bin/plutil -convert xml1 -o - /Library/Preferences/com.apple.loginwindow.plist": {"returncode": 0, "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict><key>GuestEnabled</key><true/><key>autoLoginUser</key><string>example</string></dict></plist>\n"},
+    "/usr/bin/dscl . -read /Groups/admin GroupMembership": {"returncode": 0, "stdout": "GroupMembership: root user1 user2 user3 user4\n"}
+  }
+}

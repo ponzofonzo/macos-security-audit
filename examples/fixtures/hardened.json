@@ -1,0 +1,17 @@
+{
+  "description": "SYNTHETIC DATA. Managed Mac meeting the baseline, audited with sudo. Values are invented.",
+  "now": "2026-01-15T12:00:00Z",
+  "commands": {
+    "/usr/bin/fdesetup status": {"returncode": 0, "stdout": "FileVault is On.\n"},
+    "/usr/bin/csrutil status": {"returncode": 0, "stdout": "System Integrity Protection status: enabled.\n"},
+    "/usr/sbin/spctl --status": {"returncode": 0, "stdout": "assessments enabled\n"},
+    "/usr/bin/plutil -convert xml1 -o - /Library/Apple/System/Library/CoreServices/XProtect.bundle/Contents/Info.plist": {"returncode": 0, "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict><key>CFBundleShortVersionString</key><string>5284</string></dict></plist>\n"},
+    "/usr/bin/plutil -convert xml1 -o - /Library/Preferences/com.apple.SoftwareUpdate.plist": {"returncode": 0, "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict><key>AutomaticCheckEnabled</key><true/><key>CriticalUpdateInstall</key><true/><key>ConfigDataInstall</key><true/></dict></plist>\n"},
+    "/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate": {"returncode": 0, "stdout": "Firewall is enabled. (State = 1)\n"},
+    "/usr/libexec/ApplicationFirewall/socketfilterfw --getstealthmode": {"returncode": 0, "stdout": "Firewall stealth mode is on\n"},
+    "/usr/sbin/systemsetup -getremotelogin": {"returncode": 0, "stdout": "Remote Login: Off\n"},
+    "/usr/sbin/sysadminctl -screenLock status": {"returncode": 0, "stdout": "", "stderr": "2026-01-15 12:00:00.000 sysadminctl[1000:2000] screenLock delay is immediate\n"},
+    "/usr/bin/plutil -convert xml1 -o - /Library/Preferences/com.apple.loginwindow.plist": {"returncode": 0, "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<plist version=\"1.0\"><dict><key>GuestEnabled</key><false/></dict></plist>\n"},
+    "/usr/bin/dscl . -read /Groups/admin GroupMembership": {"returncode": 0, "stdout": "GroupMembership: root localadmin\n"}
+  }
+}

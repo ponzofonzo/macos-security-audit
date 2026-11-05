@@ -1,0 +1,174 @@
+{
+  "schema_version": "1.0",
+  "tool": {
+    "name": "macos-security-audit",
+    "version": "1.0.0"
+  },
+  "generated_at": "2026-01-15T12:00:00+00:00",
+  "data_source": "replay:at-risk.json",
+  "summary": {
+    "overall_status": "fail",
+    "total": 12,
+    "counts": {
+      "pass": 0,
+      "warn": 4,
+      "fail": 6,
+      "error": 0,
+      "info": 1,
+      "skip": 1
+    },
+    "score_percent": 0,
+    "controls_passed": 0,
+    "controls_evaluated": 10,
+    "failed_controls": [
+      "filevault",
+      "gatekeeper",
+      "security_updates",
+      "firewall",
+      "guest_account",
+      "auto_login"
+    ],
+    "not_evaluated": [
+      "remote_login"
+    ],
+    "headline": "Security score: 0% (0 of 10 evaluated controls passing) \u00b7 1 not evaluated"
+  },
+  "checks": [
+    {
+      "id": "filevault",
+      "title": "FileVault disk encryption",
+      "category": "Data protection",
+      "status": "fail",
+      "summary": "FileVault is off",
+      "details": {
+        "state": "off"
+      },
+      "remediation": "Turn on FileVault in System Settings > Privacy & Security, or enforce it with an MDM profile."
+    },
+    {
+      "id": "sip",
+      "title": "System Integrity Protection",
+      "category": "System integrity",
+      "status": "warn",
+      "summary": "SIP has a custom configuration",
+      "details": {
+        "state": "custom",
+        "disabled_components": [
+          "Apple Internal",
+          "Kext Signing"
+        ]
+      },
+      "remediation": "Boot to Recovery and run `csrutil enable`."
+    },
+    {
+      "id": "gatekeeper",
+      "title": "Gatekeeper",
+      "category": "System integrity",
+      "status": "fail",
+      "summary": "Gatekeeper assessments are disabled",
+      "details": {
+        "state": "disabled"
+      },
+      "remediation": "Re-enable Gatekeeper: `sudo spctl --global-enable` (or via MDM)."
+    },
+    {
+      "id": "xprotect",
+      "title": "XProtect version",
+      "category": "System integrity",
+      "status": "info",
+      "summary": "XProtect 5272",
+      "details": {
+        "version": "5272"
+      },
+      "remediation": ""
+    },
+    {
+      "id": "security_updates",
+      "title": "Automatic security updates",
+      "category": "System integrity",
+      "status": "fail",
+      "summary": "Automatic security responses/data files disabled: CriticalUpdateInstall",
+      "details": {
+        "CriticalUpdateInstall": false,
+        "ConfigDataInstall": true,
+        "explicitly_configured": [
+          "CriticalUpdateInstall"
+        ]
+      },
+      "remediation": "Turn on 'Install Security Responses and system files' in Software Update settings."
+    },
+    {
+      "id": "firewall",
+      "title": "Application Firewall",
+      "category": "Network",
+      "status": "fail",
+      "summary": "Firewall is off",
+      "details": {
+        "state": 0
+      },
+      "remediation": "Turn on the firewall in System Settings > Network > Firewall, or via MDM."
+    },
+    {
+      "id": "firewall_stealth",
+      "title": "Firewall stealth mode",
+      "category": "Network",
+      "status": "warn",
+      "summary": "Stealth mode is off",
+      "details": {},
+      "remediation": "Enable stealth mode so the Mac ignores ICMP probes and closed-port connection attempts."
+    },
+    {
+      "id": "remote_login",
+      "title": "Remote Login (SSH)",
+      "category": "Network",
+      "status": "skip",
+      "summary": "Requires administrator privileges to read.",
+      "details": {},
+      "remediation": "Re-run with sudo to evaluate this control."
+    },
+    {
+      "id": "screen_lock",
+      "title": "Screen lock password",
+      "category": "Access control",
+      "status": "warn",
+      "summary": "Password required after 300 seconds",
+      "details": {
+        "delay_seconds": 300
+      },
+      "remediation": "Require a password immediately (or within 5 s) after sleep or screen saver."
+    },
+    {
+      "id": "guest_account",
+      "title": "Guest account",
+      "category": "Access control",
+      "status": "fail",
+      "summary": "Guest account is enabled",
+      "details": {
+        "guest_enabled": true
+      },
+      "remediation": "Disable the guest user in System Settings > Users & Groups."
+    },
+    {
+      "id": "auto_login",
+      "title": "Automatic login",
+      "category": "Access control",
+      "status": "fail",
+      "summary": "Automatic login is enabled",
+      "details": {
+        "auto_login": true
+      },
+      "remediation": "Turn off automatic login in System Settings > Users & Groups."
+    },
+    {
+      "id": "admin_accounts",
+      "title": "Local administrator accounts",
+      "category": "Access control",
+      "status": "warn",
+      "summary": "4 local administrator account(s) (excluding root)",
+      "details": {
+        "admin_count": 4
+      },
+      "remediation": "Review admin membership; standard accounts for daily use reduce risk."
+    }
+  ]
+}
